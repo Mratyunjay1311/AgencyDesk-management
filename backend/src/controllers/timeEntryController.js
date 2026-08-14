@@ -3,7 +3,7 @@ const { getAccessibleTask } = require("./taskController");
 const { buildProjectFilter } = require("../utils/accessFilters");
 const { Project } = require("../models");
 
-// POST /api/tasks/:taskId/time-entries   (agency staff only)
+
 async function logTime(req, res) {
   const task = await getAccessibleTask(req.auth, req.params.taskId);
   if (!task) {
@@ -33,8 +33,7 @@ async function projectHoursSummary(req, res) {
     return res.status(404).json({ error: "Project not found" });
   }
 
-  // Time entries carry agencyId directly, but not projectId - so we
-  // go through Task first to find which tasks belong to this project.
+  
   const { Task } = require("../models");
   const taskIds = await Task.find({ agencyId: req.auth.agencyId, projectId: project._id }).distinct("_id");
 

@@ -29,10 +29,7 @@ const inviteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Only one PENDING invite allowed per agency+email at a time. Once an
-// invite is accepted, its status changes, so this partial index (only
-// applies to status: "pending" docs) allows a new invite to be created
-// later for the same email without violating uniqueness.
+
 inviteSchema.index(
   { agencyId: 1, email: 1 },
   { unique: true, partialFilterExpression: { status: "pending" } }

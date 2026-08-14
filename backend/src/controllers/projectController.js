@@ -8,7 +8,7 @@ function buildProjectFilter(auth) {
   } else if (auth.role === "client_user") {
     filter.clientId = auth.clientId;
   }
-  // agency_admin: no extra narrowing - full agency access.
+  
 
   return filter;
 }

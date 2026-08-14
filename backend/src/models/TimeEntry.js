@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
-// Time entries are agency-internal only - clients never see hours
-// logged, so this collection has no clientVisible flag at all. That
-// itself is a design decision worth stating in DESIGN.md: some data
-// doesn't need a visibility flag because it's never client-facing by
-// definition, and every read path for this collection must require
-// an agency staff role.
+
 const timeEntrySchema = new mongoose.Schema(
   {
     agencyId: { type: mongoose.Schema.Types.ObjectId, ref: "Agency", required: true },

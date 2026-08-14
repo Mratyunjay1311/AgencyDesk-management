@@ -44,8 +44,7 @@ async function acceptInvite(req, res) {
     user = await User.create({ email: invite.email, passwordHash, name });
   }
 
-  // Unique {userId, agencyId} index on Membership means this can't
-  // silently create a duplicate membership even under a race.
+ 
   const membership = await Membership.findOneAndUpdate(
     { userId: user._id, agencyId: invite.agencyId },
     { $setOnInsert: { role: invite.role, clientId: invite.clientId, status: "active" } },

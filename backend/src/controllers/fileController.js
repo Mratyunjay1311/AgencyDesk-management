@@ -1,7 +1,7 @@
 const { File } = require("../models");
 const { getAccessibleTask } = require("./taskController");
 
-// POST /api/tasks/:taskId/files   (agency staff only)
+
 async function uploadFile(req, res) {
   const task = await getAccessibleTask(req.auth, req.params.taskId);
   if (!task) {
@@ -45,9 +45,7 @@ async function updateApproval(req, res) {
     return res.status(400).json({ error: "approvalStatus must be 'approved' or 'needs_changes'" });
   }
 
-  // A client can only act on a file that's in their agency AND
-  // client-visible - enforced right in the query, same pattern as
-  // everywhere else in this app.
+ 
   const file = await File.findOne({
     _id: req.params.id,
     agencyId: req.auth.agencyId,

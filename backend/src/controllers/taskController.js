@@ -1,10 +1,7 @@
 const { Project, Task } = require("../models");
 const { buildProjectFilter } = require("../utils/accessFilters");
 const { TimeEntry } = require("../models");
-// Confirms this user can access this specific PROJECT at all, before
-// we let them touch any of its tasks. Every task route below calls
-// this first - a task can never leak from a project the requester
-// can't even see, because we check the project, not just the task.
+
 async function getAccessibleProject(auth, projectId) {
   const filter = { ...buildProjectFilter(auth), _id: projectId };
   return Project.findOne(filter);
@@ -27,7 +24,7 @@ async function getAccessibleTask(auth, taskId) {
   return task;
 }
 
-// POST /api/projects/:projectId/tasks   (agency_admin, agency_member only)
+
 async function createTask(req, res) {
   const project = await getAccessibleProject(req.auth, req.params.projectId);
   if (!project) {
@@ -53,7 +50,7 @@ async function createTask(req, res) {
   res.status(201).json(task);
 }
 
-// GET /api/projects/:projectId/tasks
+
 async function listTasks(req, res) {
   const project = await getAccessibleProject(req.auth, req.params.projectId);
   if (!project) {
@@ -62,10 +59,7 @@ async function listTasks(req, res) {
 
   const filter = { agencyId: req.auth.agencyId, projectId: project._id };
 
-  // THE rule that keeps internal tasks away from clients - applied
-  // at the database query itself, not as a filter on results we
-  // already pulled back. This is what the assignment means by
-  // "check every code path, not just the main list view."
+ 
   if (req.auth.role === "client_user") {
     filter.clientVisible = true;
   }

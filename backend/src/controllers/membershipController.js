@@ -9,7 +9,7 @@ async function removeMember(req, res) {
   membership.status = "removed";
   await membership.save();
 
-  // Pull them off every project they were assigned to in this agency.
+ 
   await Project.updateMany(
     { agencyId: req.auth.agencyId, assignedMembers: membership.userId },
     { $pull: { assignedMembers: membership.userId } }
