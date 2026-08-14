@@ -20,7 +20,7 @@ export default function SelectAgency() {
     setError("");
     try {
       const identityToken = sessionStorage.getItem("identityToken");
-      const res = await fetch("http://localhost:4000/api/auth/select-agency", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/select-agency`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${identityToken}` },
         body: JSON.stringify({ membershipId }),
