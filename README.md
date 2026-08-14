@@ -4,7 +4,7 @@ Multi-tenant client & project management platform for agency-client
 work. Built with React, Express, and MongoDB.
 
 ## Live demo
-- Frontend: https://YOUR-VERCEL-URL.vercel.app
+- Frontend: https://YOUR-VERCEL-URL.vercel.app/auth/login
 - Backend API: https://YOUR-RENDER-URL.onrender.com/api/health
 
 ## Tech stack
